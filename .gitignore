@@ -1,0 +1,4 @@
+Obj/*.c
+Obj/*.o
+Obj64/*.c
+Obj64/*.o
