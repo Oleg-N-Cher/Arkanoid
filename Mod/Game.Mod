@@ -11,6 +11,8 @@ CONST
   BRICK_H =    32;
   NROWS   =     4;
   NCOLS   =     5;
+  CHAR_W  =    20;
+  CHAR_H  =    35;
 
 TYPE
   Ball = RECORD posx, posy, velx, vely: REAL END;
@@ -84,7 +86,8 @@ BEGIN
   END;
   Sound.Load(hit_sfx, "Data/hit.wav");
   Sound.Load(smash_sfx, "Data/smash.wav");
-  font_img := g.LoadFont("Data/font.png", 20, 35); ASSERT(font_img # NIL);
+  font_img := g.LoadFont("Data/font.png", CHAR_W, CHAR_H);
+  ASSERT(font_img # NIL);
 END OnCreate;
 
 PROCEDURE ResetBoard;
@@ -165,7 +168,11 @@ BEGIN
   END;
 
   Strings.Str(score, str);
-  g.DrawString(screen, font_img, 230, 23, str, 0BBBBBBH);
+  g.DrawString(
+    screen, font_img,
+    250 - Strings.Length(str)*CHAR_W DIV 2, 40 - CHAR_H DIV 2,
+    str, 0BBBBBBH
+  );
 END OnRender;
 
 BEGIN
