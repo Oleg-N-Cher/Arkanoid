@@ -1,5 +1,5 @@
 MODULE Game; (*$MAIN*)
-IMPORT g := Graph, Sound;
+IMPORT g := Graph, Sound, Strings := powStrings;
 
 CONST
   BOARD_W = 500.0;
@@ -151,9 +151,9 @@ END OnUpdate;
 
 PROCEDURE OnRender;
 VAR
-  n: INTEGER;
+  n: INTEGER; str: ARRAY 12 OF CHAR;
 BEGIN
-  g.ClearScreenToColor(505050H);
+  g.ClearScreenToColor(50505050H);
   g.BlitWhole(bat_img, screen,
     SHORT(ENTIER(batx-BAT_W/2)), SHORT(ENTIER(baty-BAT_H/2))
   );
@@ -164,7 +164,8 @@ BEGIN
     IF ~bricks[n].hidden THEN bricks[n].Draw END;
   END;
 
-  (*g.DrawString(screen, font_img, 250, 40, "0", 3);*)
+  Strings.Str(score, str);
+  g.DrawString(screen, font_img, 230, 23, str, 0BBBBBBH);
 END OnRender;
 
 BEGIN
@@ -173,7 +174,6 @@ BEGIN
   OnCreate;
   quit := FALSE; g.ShowMouse(TRUE);
   REPEAT
-    g.Delay(2);
     g.WaitEvents(0);
     WHILE g.PollEvent(event) DO
       CASE event.type OF

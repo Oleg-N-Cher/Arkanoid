@@ -12,3 +12,4 @@ SET gcc=gcc.exe %StripExe% -s -Os -fno-exceptions -fno-asynchronous-unwind-table
 
 %gcc% Game.c -mwindows %lib% -o ..\Game.exe
 IF errorlevel 1 PAUSE
+%XDev%\Bin\upx.exe ..\Game.exe
