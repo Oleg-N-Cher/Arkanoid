@@ -2,17 +2,17 @@ MODULE Game; (*$MAIN*)
 IMPORT g := Graph, Sound, Strings := powStrings;
 
 CONST
-  BOARD_W = 500.0;
-  BOARD_H = 500.0;
-  BAT_W   = 104.0;
-  BAT_H   =  24.0;
-  BALL_R  =  11.0;
-  BRICK_W =    64;
-  BRICK_H =    32;
-  NROWS   =     4;
-  NCOLS   =     5;
-  CHAR_W  =    20;
-  CHAR_H  =    35;
+  BOARD_W = 500;
+  BOARD_H = 500;
+  BAT_W   = 104;
+  BAT_H   =  24;
+  BALL_R  =  11;
+  BRICK_W =  64;
+  BRICK_H =  32;
+  NROWS   =   4;
+  NCOLS   =   5;
+  CHAR_W  =  20;
+  CHAR_H  =  35;
 
 TYPE
   Ball = RECORD posx, posy, velx, vely: REAL END;
@@ -156,7 +156,7 @@ PROCEDURE OnRender;
 VAR
   n: INTEGER; str: ARRAY 12 OF CHAR;
 BEGIN
-  g.ClearScreenToColor(50505050H);
+  g.ClearScreenToColor(0FF505050H-100000000H);
   g.BlitWhole(bat_img, screen,
     SHORT(ENTIER(batx-BAT_W/2)), SHORT(ENTIER(baty-BAT_H/2))
   );
@@ -171,12 +171,12 @@ BEGIN
   g.DrawString(
     screen, font_img,
     250 - Strings.Length(str)*CHAR_W DIV 2, 40 - CHAR_H DIV 2,
-    str, 0BBBBBBH
+    str, 0CCCCCCH
   );
 END OnRender;
 
 BEGIN
-  g.Settings(640, 480, {g.spread, g.initMouse});
+  g.Settings(BOARD_W, BOARD_H, {g.spread, g.initMouse});
   screen := g.Init(); g.SetFPS(60);
   OnCreate;
   quit := FALSE; g.ShowMouse(TRUE);
